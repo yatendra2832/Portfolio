@@ -7,7 +7,7 @@ const app = express()
 const contactRouter = require('./routes/contact-router')
 
 const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: "https://yatendra-dev.onrender.com",
     methods: "GET,POST,DELETE,PUT,PATCH,HEAD",
     credentials: true
 }
