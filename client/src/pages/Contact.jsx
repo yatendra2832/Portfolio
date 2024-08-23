@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./ContactForm.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./ContactForm.css";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -24,15 +27,20 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://portfolio-backend-5ylf.onrender.com/api/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.ok) {
-        alert("Your response have been recorded")
+        toast.success("Your response has been recorded!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
         setFormData({ name: "", email: "", phone: "", message: "" });
       }
       // Reset form
