@@ -1,0 +1,40 @@
+#experience {
+  padding: 50px 0;
+}
+
+#experience .card {
+  background: rgba(0, 0, 0, 0.1);
+  border: none;
+  color: #ffffff;
+  backdrop-filter: blur(10px); /* Adds a blur effect */
+  box-shadow: 1px 2px 3px #00d8ff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#experience .card:hover {
+  transform: scale(1.05);
+  box-shadow: 1px 2px 30px #00d8ff;
+}
+
+#experience .card-title {
+  color: #00d8ff;
+}
+
+#experience .card-subtitle {
+  color: #00c3ff;
+}
+
+#experience .card-text {
+  color: #ffffff;
+}
+
+#experience .card p {
+  margin-bottom: 0.5rem;
+}
+
+#experience h2 {
+  color: #00d8ff;
+  text-shadow: 1px 2px 30px #00d8ff;
+  margin-bottom: 30px;
+  text-align: center;
+}
