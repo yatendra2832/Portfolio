@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./ContactForm.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./ContactForm.css";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -38,17 +36,12 @@ const Contact = () => {
         }
       );
       if (response.ok) {
-        toast.success("Your response has been recorded!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
         setFormData({ name: "", email: "", phone: "", message: "" });
+        toast.success('Thanks For Your Response !!')
       }
       // Reset form
     } catch (error) {
       console.error("There was an error submitting the form:", error);
-      setResponseMessage(
-        "There was an error submitting the form. Please try again."
-      );
     }
   };
   return (
