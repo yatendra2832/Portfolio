@@ -1,25 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const ProgressBar = ({ label, value, color, textColor }) => {
+const ProgressBar = ({ label, value }) => {
   return (
-    <div className="progress my-3" role="progressbar" aria-label={label} aria-valuenow={value} aria-valuemin="0" aria-valuemax="100">
-      <div className={`progress-bar ${color} ${textColor}`} style={{ width: `${value}%` }}>
-        {value}% {label}
+    <div className="custom-progress-wrapper my-3">
+      <div className="custom-progress-label">
+        <span className="fw-semibold">{label}</span>
+        <span className="gradient-text font-display fw-bold">{value}%</span>
+      </div>
+      <div className="custom-progress-track">
+        <div className="custom-progress-fill" style={{ width: `${value}%` }}></div>
       </div>
     </div>
   );
-};
-
-ProgressBar.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
-  textColor: PropTypes.string,
-};
-
-ProgressBar.defaultProps = {
-  textColor: '',
 };
 
 export default ProgressBar;

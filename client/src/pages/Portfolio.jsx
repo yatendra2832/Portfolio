@@ -1,211 +1,427 @@
-import React from "react";
-import "./portfolio.css"; // Create and import your custom CSS
+import React, { useState, useEffect } from "react";
+import "./portfolio.css";
 import TypedSkills from "./TypedSkills";
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link } from "react-scroll";
+import {
+  FaDownload,
+  FaArrowRight,
+  FaTwitter,
+  FaEnvelope,
+  FaLinkedin,
+  FaGithub,
+  FaInstagram,
+  FaReact,
+  FaNodeJs,
+  FaDocker,
+  FaBars,
+  FaTimes,
+  FaArrowUp,
+} from "react-icons/fa";
+import { SiMongodb } from "react-icons/si";
 
 const Portfolio = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
   return (
-    <section id="home" className="section">
-      <div className="portfolio-container">
-        <nav className="navbar navbar-expand-lg navbar-dark ">
-          <div className="container-fluid">
-            {/* <a
-              className="navbar-brand text-warning fst-italic fw-bold fs-2 "
-              href="/home"
-            >
-              {"<Yatendra />"}
-            </a> */}
+    <section id="home" className="portfolio-container pt-5 pb-4 position-relative overflow-hidden">
+      {/* Ambient Radial Background Orbs */}
+      <div className="hero-glow-orb-left"></div>
+      <div className="hero-glow-orb-right"></div>
+
+      {/* Floating Back To Top Button */}
+      {showScrollTop && (
+        <Link
+          to="home"
+          spy={true}
+          smooth={true}
+          duration={500}
+          className="floating-back-to-top"
+          aria-label="Scroll to top"
+        >
+          <FaArrowUp />
+        </Link>
+      )}
+
+      {/* Floating Glass Navbar */}
+      <nav className="floating-navbar d-flex align-items-center justify-content-between">
+        <Link
+          className="navbar-brand-logo text-decoration-none"
+          to="home"
+          spy={true}
+          smooth={true}
+          duration={500}
+          onClick={closeMobileMenu}
+        >
+          {"<Yatendra />"}
+        </Link>
+
+        {/* Desktop Links */}
+        <div className="d-none d-md-flex align-items-center gap-1">
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="home"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Home
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="about"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            About
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="services"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Services
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="skills"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Skills
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="education"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Education
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="work"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Projects
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="experience"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            Experience
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="faq"
+            spy={true}
+            smooth={true}
+            offset={-65}
+            duration={500}
+          >
+            FAQ
+          </Link>
+          <Link
+            className="nav-link"
+            activeClass="active"
+            to="contact"
+            spy={true}
+            smooth={true}
+            offset={-80}
+            duration={500}
+          >
+            Contact
+          </Link>
+        </div>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <button
+          className="btn text-white fs-4 d-md-none border-0 p-1"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation"
+        >
+          {mobileMenuOpen ? <FaTimes className="text-info" /> : <FaBars />}
+        </button>
+
+        {/* Mobile Drawer Menu */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer d-md-none">
             <Link
-              className="navbar-brand text-warning fst-italic fw-bold fs-2 links"
+              className="nav-link"
               to="home"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
             >
-              {"<Yatendra/>"}
+              Home
             </Link>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbar2"
-              aria-controls="navbarSupportedContent"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+            <Link
+              className="nav-link"
+              to="about"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
             >
-              <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbar2">
-              <ul className="navbar-nav ms-auto d-flex justify-content-between">
-                <li className="nav-item fw-bold ">
-                  <Link
-                    className="nav-link text-warning"
-                    activeClass="active"
-                    to="home"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="about"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    About
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="skills"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Skills
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="education"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Education
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="work"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Projects
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="experience"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Experience
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link"
-                    activeClass="active"
-                    to="contact"
-                    spy={true}
-                    smooth={true}
-                    offset={-70}
-                    duration={500}
-                  >
-                    Contact
-                  </Link>
-                </li>
-              </ul>
+              About
+            </Link>
+            <Link
+              className="nav-link"
+              to="services"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Services
+            </Link>
+            <Link
+              className="nav-link"
+              to="skills"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Skills
+            </Link>
+            <Link
+              className="nav-link"
+              to="education"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Education
+            </Link>
+            <Link
+              className="nav-link"
+              to="work"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Projects
+            </Link>
+            <Link
+              className="nav-link"
+              to="experience"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Experience
+            </Link>
+            <Link
+              className="nav-link"
+              to="faq"
+              spy={true}
+              smooth={true}
+              offset={-65}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              FAQ
+            </Link>
+            <Link
+              className="nav-link"
+              to="contact"
+              spy={true}
+              smooth={true}
+              offset={-80}
+              duration={500}
+              onClick={closeMobileMenu}
+            >
+              Contact
+            </Link>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Content Section */}
+      <div className="container min-vh-100 d-flex align-items-center justify-content-center pt-5 mt-4 position-relative z-1">
+        <div className="row align-items-center w-100 gy-5">
+          {/* Text Content Left */}
+          <div className="col-lg-7 text-center text-lg-start">
+            <div className="status-badge mb-3">
+              <span className="pulse-dot"></span>
+              Available for Full-Stack & DevOps Roles
+            </div>
+            
+            <div className="d-block mb-2">
+              <span className="greeting-pill">
+                Hi There <span className="wave-hand fs-4 ms-1">👋</span>
+              </span>
+            </div>
+
+            <h1 className="display-3 fw-extrabold mb-2 text-white">
+              I'm <span className="gradient-title">Yatendra Singh</span>
+            </h1>
+            
+            <div className="fs-3 fw-medium mb-4 text-white">
+              <TypedSkills />
+            </div>
+
+            <p className="lead text-muted-custom mb-4 max-w-xl mx-auto mx-lg-0 fs-6">
+              Specializing in building robust full-stack web applications, scalable REST APIs, 
+              microservices architecture, and modern DevOps cloud workflows.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start gap-3 mb-4">
+              <a
+                href="/Resume.pdf"
+                className="btn-gradient"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaDownload /> Download Resume
+              </a>
+              
+              <Link
+                to="work"
+                spy={true}
+                smooth={true}
+                offset={-65}
+                duration={500}
+                className="btn-glass"
+              >
+                Explore Projects <FaArrowRight />
+              </Link>
+            </div>
+
+            {/* Social Icons */}
+            <div className="d-flex align-items-center justify-content-center justify-content-lg-start gap-3">
+              <a
+                href="https://github.com/yatendra2832"
+                className="social-pill"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
+                <FaGithub />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/yatendra-singh-b83a4a227/"
+                className="social-pill"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedin />
+              </a>
+              <a
+                href="https://x.com/Yatendra2832"
+                className="social-pill"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+              >
+                <FaTwitter />
+              </a>
+              <a
+                href="mailto:yatendrayadav2832@gmail.com"
+                className="social-pill"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Email"
+              >
+                <FaEnvelope />
+              </a>
+              <a
+                href="https://www.instagram.com/yadavjiediting_youtube"
+                className="social-pill"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <FaInstagram />
+              </a>
             </div>
           </div>
-        </nav>
-        <div className="container text-center">
-          <div className="row align-items-center vh-100">
-            <div className="col-md-6 order-md-1 text-md-right">
-              {" "}
-              {/* Yatendra section */}
-              <h1 className="display-5 fw-bold">Hi There</h1>
-              <h1 className="text-primary text-shadow display-3 fw-bold">
-                {" "}
-                I'm Yatendra Singh
-              </h1>
-              {/* <h3 className="text-info fw-normal mb-4">Full Stack Developer</h3> */}
-              <TypedSkills />
-              <div className="d-flex justify-content-center mt-4">
-                <button className="btn btn-outline-info  mx-3  ">
-                  <a
-                    href="/Resume.pdf"
-                    className="  d-flex align-items-center text-decoration-none text-white"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fas fa-download me-2 "></i> Download CV
-                  </a>
-                </button>
-                <button className="btn btn-outline-warning  mx-3">
-                  <Link to={"/about"}>
-                    {" "}
-                    <i className="fas fa-info me-2 "></i> Know More
-                  </Link>
-                </button>
+
+          {/* Hero Avatar Right with Floating Tech Badges */}
+          <div className="col-lg-5 text-center">
+            <div className="hero-avatar-container">
+              <div className="hero-avatar-glow"></div>
+              
+              <img
+                src="./yatendraprofile.png"
+                alt="Yatendra Singh"
+                className="hero-avatar-img"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+                width="280"
+                height="280"
+              />
+
+              {/* Floating Badges */}
+              <div className="floating-tech-badge badge-top-left">
+                <FaReact className="text-info" /> React.js
               </div>
-              <div className="mt-4 social-icons d-flex justify-content-around ">
-                <a
-                  href="https://x.com/Yatendra2832"
-                  className="text-primary mx-2"
-                  target="_blank"
-                >
-                  <i className="fa-brands fa-twitter fs-3"></i>
-                </a>{" "}
-                <a
-                  href="mailto:yatendrayadav2832@gmail.com"
-                  className="text-decoration-none"
-                  target="_blank"
-                >
-                  <i className="fas fa-envelope me-2"></i>{" "}
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/yatendra-singh-b83a4a227/"
-                  className="text-primary mx-2"
-                  target="_blank"
-                >
-                  <i className="fa-brands fa-linkedin fs-3"></i>
-                </a>
-                <a
-                  href="https://github.com/yatendra2832"
-                  className="text-primary mx-2"
-                  target="_blank"
-                >
-                  <i className="fa-brands fa-github fs-3"></i>
-                </a>
-                <a
-                  href="https://www.instagram.com/yadavjiediting_youtube"
-                  className="text-primary mx-2"
-                  target="_blank"
-                >
-                  <i className="fa-brands fa-instagram fs-3"></i>
-                </a>
+              
+              <div className="floating-tech-badge badge-top-right">
+                <FaNodeJs className="text-success" /> Node.js
               </div>
-            </div>
-            <div className="col-md-6 order-md-2 text-center">
-              {" "}
-              {/* Image section */}
-              <div className="profile-img-wrapper">
-                <img
-                  src="./yatendraprofile.png"
-                  alt="Yatendra Singh"
-                  className=""
-                />
+              
+              <div className="floating-tech-badge badge-bottom-left">
+                <SiMongodb className="text-success" /> MongoDB
+              </div>
+              
+              <div className="floating-tech-badge badge-bottom-right">
+                <FaDocker className="text-primary" /> Docker
               </div>
             </div>
           </div>
